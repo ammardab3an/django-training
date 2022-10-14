@@ -77,16 +77,16 @@ def create_albums_two_ways():
     al0.save()
     
     #second way
-    Album.objects.create(   name="ammars_second_album", 
-                            artist=ar_ammar, creation_date=timezone.now(), 
-                            release_date=timezone.now()+datetime.timedelta(days=1), 
-                            cost=30.30)
+    ar_ammar.album_set.create(name="ammars_second_album", 
+                                creation_date=timezone.now(), 
+                                release_date=timezone.now()+datetime.timedelta(days=1), 
+                                cost=30.30)
     
-    for al in Artist.objects.get(pk="ammar").album_set.all():
+    for al in ar_ammar.album_set.all():
         print(al)
 
 def latest_release_album():
-    al = Album.objects.order_by('-release_date')[:1].get()
+    al = Album.objects.latest('release_date')
     print(al, al.release_date)
 
 def list_albums_lt_today():

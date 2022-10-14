@@ -76,12 +76,12 @@ def create_albums_two_ways():
     al0.save()
     
     #second way
-    Album.objects.create(   name="ammars_second_album", 
-                            artist=ar_ammar, creation_date=timezone.now(), 
-                            release_date=timezone.now()+datetime.timedelta(days=1), 
-                            cost=30.30)
+    ar_ammar.album_set.create(name="ammars_second_album", 
+                                creation_date=timezone.now(), 
+                                release_date=timezone.now()+datetime.timedelta(days=1), 
+                                cost=30.30)
     
-    for al in Artist.objects.get(pk="ammar").album_set.all():
+    for al in ar_ammar.album_set.all():
         print(al)
 
 ```
@@ -99,7 +99,7 @@ code:
 
 ```python
 def latest_release_album():
-    al = Album.objects.order_by('-release_date')[:1].get()
+    al = Album.objects.latest('release_date')
     print(al, al.release_date)
 
 ```
@@ -107,7 +107,7 @@ def latest_release_album():
 output:
 
 ```
-album name: album2, artist: artist0 2022-10-26 06:11:16.051259+00:00
+album name: album2, artist: artist0 2022-10-28 12:03:15.661721+00:00
 ```
 
 ##### 6. albums released before today.
@@ -125,9 +125,9 @@ def list_albums_lt_today():
 output:
 
 ```
-album name: album0, artist: artist0 2022-10-12
-album name: album4, artist: artist1 2022-10-10
-album name: album5, artist: artist2 2022-10-02
+album name: album0, artist: artist0 2022-10-14
+album name: album4, artist: artist1 2022-10-12
+album name: album5, artist: artist2 2022-10-04
 ```
 
 ##### 6. albums released today or before today.
@@ -145,8 +145,8 @@ def list_albums_lte_today():
 output:
 
 ```
-album name: album4, artist: artist1 2022-10-10
-album name: album5, artist: artist2 2022-10-02
+album name: album4, artist: artist1 2022-10-12
+album name: album5, artist: artist2 2022-10-04
 ```
 
 ##### 7. albums total count.
@@ -186,22 +186,22 @@ output:
 
 ```
 artist name: artist0, social-media: fb.com/artist0
-	 album0 2022-10-12 10.0
-	 album1 2022-10-19 10.1
-	 album2 2022-10-26 10.2
+	 album0 2022-10-14 10.0
+	 album1 2022-10-21 10.1
+	 album2 2022-10-28 10.2
 artist name: artist1, social-media: fb.com/artist1
-	 album3 2022-10-22 10.3
-	 album4 2022-10-10 10.4
+	 album3 2022-10-24 10.3
+	 album4 2022-10-12 10.4
 artist name: artist2, social-media: fb.com/artist2
-	 album5 2022-10-02 10.5
-	 album6 2022-10-13 10.6
+	 album5 2022-10-04 10.5
+	 album6 2022-10-15 10.6
 artist name: artist3, social-media: fb.com/artist3
-	 album7 2022-10-13 10.7
+	 album7 2022-10-15 10.7
 artist name: artist4, social-media: fb.com/artist4
 	 no albums yet.
 artist name: ammar, social-media: fb.com/ammardab3an
-	 ammars_first_album 2022-10-19 20.5
-	 ammars_second_album 2022-10-13 30.3
+	 ammars_first_album 2022-10-21 20.5
+	 ammars_second_album 2022-10-15 30.3
 artist name: mahmoud, social-media: fb.com/mahmoud
 	 no albums yet.
 artist name: majed, social-media: fb.com/madjed
@@ -228,22 +228,22 @@ output:
 
 ```
 artist name: artist0, social-media: fb.com/artist0
-	 album0 2022-10-12 10.0
-	 album1 2022-10-19 10.1
-	 album2 2022-10-26 10.2
+	 album0 2022-10-14 10.0
+	 album1 2022-10-21 10.1
+	 album2 2022-10-28 10.2
 artist name: artist1, social-media: fb.com/artist1
-	 album3 2022-10-22 10.3
-	 album4 2022-10-10 10.4
+	 album3 2022-10-24 10.3
+	 album4 2022-10-12 10.4
 artist name: artist2, social-media: fb.com/artist2
-	 album5 2022-10-02 10.5
-	 album6 2022-10-13 10.6
+	 album5 2022-10-04 10.5
+	 album6 2022-10-15 10.6
 artist name: artist3, social-media: fb.com/artist3
-	 album7 2022-10-13 10.7
+	 album7 2022-10-15 10.7
 artist name: artist4, social-media: fb.com/artist4
 	 no albums yet.
 artist name: ammar, social-media: fb.com/ammardab3an
-	 ammars_first_album 2022-10-19 20.5
-	 ammars_second_album 2022-10-13 30.3
+	 ammars_first_album 2022-10-21 20.5
+	 ammars_second_album 2022-10-15 30.3
 artist name: mahmoud, social-media: fb.com/mahmoud
 	 no albums yet.
 artist name: majed, social-media: fb.com/madjed

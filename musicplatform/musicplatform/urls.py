@@ -17,10 +17,12 @@ from django.contrib import admin
 from django.urls import path
 from artists.views import get_artist, get_artists
 from albums.views import get_album
-
+from django.urls import include, path
+    
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('artists/create/', get_artist, name='new_artist_form'),
     path('albums/create/', get_album, name='new_album_form'),
     path('artists/', get_artists, name='list_all_artists'),
+    path('__debug__/', include('debug_toolbar.urls')),
 ]

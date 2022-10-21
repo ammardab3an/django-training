@@ -10,25 +10,26 @@ def reset():
     Album.objects.all().delete()
         
     artists_obj = (
-        Artist("artist0", "fb.com/artist0"),
-        Artist("artist1", "fb.com/artist1"),
-        Artist("artist2", "fb.com/artist2"),
-        Artist("artist3", "fb.com/artist3"),
-        Artist("artist4", "fb.com/artist4"),
-    )
-
-    albums_obj = (
-        Album(0, "album0", "artist0", timezone.now()-datetime.timedelta(days=0), timezone.now()+datetime.timedelta(days=0), 10.0),
-        Album(1, "album1", "artist0", timezone.now()-datetime.timedelta(days=1), timezone.now()+datetime.timedelta(days=7), 10.1),
-        Album(2, "album2", "artist0", timezone.now()-datetime.timedelta(days=2), timezone.now()+datetime.timedelta(days=14), 10.2),
-        Album(3, "album3", "artist1", timezone.now()-datetime.timedelta(days=0), timezone.now()+datetime.timedelta(days=10), 10.3),
-        Album(4, "album4", "artist1", timezone.now()-datetime.timedelta(days=10), timezone.now()-datetime.timedelta(days=2), 10.4),
-        Album(5, "album5", "artist2", timezone.now()-datetime.timedelta(days=30), timezone.now()-datetime.timedelta(days=10), 10.5),
-        Album(6, "album6", "artist2", timezone.now()-datetime.timedelta(days=0), timezone.now()+datetime.timedelta(days=1), 10.6),
-        Album(7, "album7", "artist3", timezone.now()-datetime.timedelta(days=1), timezone.now()+datetime.timedelta(days=1), 10.7),
+        Artist(name="artist0", social_media_link="fb.com/artist0"),
+        Artist(name="artist1", social_media_link="fb.com/artist1"),
+        Artist(name="artist2", social_media_link="fb.com/artist2"),
+        Artist(name="artist3", social_media_link="fb.com/artist3"),
+        Artist(name="artist4", social_media_link="fb.com/artist4"),
     )
 
     Artist.objects.bulk_create(artists_obj)
+    
+    albums_obj = (
+        Album(name="album0", artist=Artist.objects.get(pk="artist0"), release_date=timezone.now()+datetime.timedelta(days=0), cost=10.0),
+        Album(name="album1", artist=Artist.objects.get(pk="artist0"), release_date=timezone.now()+datetime.timedelta(days=7), cost=10.1),
+        Album(name="album2", artist=Artist.objects.get(pk="artist0"), release_date=timezone.now()+datetime.timedelta(days=14), cost=10.2),
+        Album(name="album3", artist=Artist.objects.get(pk="artist1"), release_date=timezone.now()+datetime.timedelta(days=10), cost=10.3),
+        Album(name="album4", artist=Artist.objects.get(pk="artist1"), release_date=timezone.now()-datetime.timedelta(days=2), cost=10.4),
+        Album(name="album5", artist=Artist.objects.get(pk="artist2"), release_date=timezone.now()-datetime.timedelta(days=10), cost=10.5),
+        Album(name="album6", artist=Artist.objects.get(pk="artist2"), release_date=timezone.now()+datetime.timedelta(days=1), cost=10.6),
+        Album(name="album7", artist=Artist.objects.get(pk="artist3"), release_date=timezone.now()+datetime.timedelta(days=1), cost=10.7),
+    )
+
     Album.objects.bulk_create(albums_obj)
 
 def print_md(cnt, desc, fn, no_output=False):
@@ -51,9 +52,9 @@ def print_md(cnt, desc, fn, no_output=False):
 
 def create_new_artists():
     new_artists = (
-        Artist("ammar", "fb.com/ammardab3an"),
-        Artist("mahmoud", "fb.com/mahmoud"),
-        Artist("majed", "fb.com/madjed"),
+        Artist(name="ammar", social_media_link="fb.com/ammardab3an"),
+        Artist(name="mahmoud", social_media_link="fb.com/mahmoud"),
+        Artist(name="majed", social_media_link="fb.com/madjed"),
     )
 
     for ar in new_artists:
@@ -71,14 +72,12 @@ def create_albums_two_ways():
     #first way
     ar_ammar = Artist.objects.get(pk="ammar")
     al0 = Album(name="ammars_first_album", artist=ar_ammar, 
-                creation_date=timezone.now()-datetime.timedelta(days=1), 
                 release_date=timezone.now()+datetime.timedelta(weeks=1), 
                 cost=20.50)
     al0.save()
     
     #second way
     ar_ammar.album_set.create(name="ammars_second_album", 
-                                creation_date=timezone.now(), 
                                 release_date=timezone.now()+datetime.timedelta(days=1), 
                                 cost=30.30)
     

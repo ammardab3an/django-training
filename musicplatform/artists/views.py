@@ -30,13 +30,11 @@ def get_artist(request):
 def get_artists(request):
     
     data = dict()
-    for ar in Artist.objects.all():
+    for ar in Artist.objects.all().prefetch_related('album_set'):
         data[ar.name] = {
             'name': ar.name,
             'social_media_link': ar.social_media_link,
             'albums': ar.album_set.all(),
         }
-    
-    print(data)
     
     return render(request, 'artists/list_all.html', {'data': data})

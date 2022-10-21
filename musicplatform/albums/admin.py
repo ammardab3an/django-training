@@ -11,10 +11,11 @@ class AlbumForm(forms.ModelForm):
     class Meta:
         model = Album
         exclude = ()
+
 @admin.register(Album)
 class AlbumAdmin(admin.ModelAdmin):
-    list_display = ['name', 'artist']
-    readonly_fields = ['creation_date']
+    list_display = ('name', 'artist', 'release_date')
+    readonly_fields = ('created', 'modified')
     form = AlbumForm
 
 class AlbumInline(admin.TabularInline):

@@ -15,7 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from artists.views import get_artist, get_artists
+from albums.views import get_album
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('artists/create/', get_artist, name='new_artist_form'),
+    path('albums/create/', get_album, name='new_album_form'),
+    path('artists/', get_artists, name='list_all_artists'),
 ]

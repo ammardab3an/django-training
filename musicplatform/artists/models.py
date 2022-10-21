@@ -1,6 +1,7 @@
 from unittest.util import _MAX_LENGTH
 from django.db import models
 from django.db.models.functions import Coalesce
+from model_utils.models import TimeStampedModel
 
 class ArtistManager(models.Manager):
     def get_queryset(self):
@@ -8,7 +9,7 @@ class ArtistManager(models.Manager):
             approved_albums=Coalesce(models.Count("album"), 0)
         )
         
-class Artist(models.Model):
+class Artist(TimeStampedModel):
     
     name = models.CharField(max_length=200, primary_key=True)
     social_media_link = models.URLField(max_length=300, blank=True, null=False)
@@ -18,4 +19,4 @@ class Artist(models.Model):
         ordering = ['name']
         
     def __str__(self):
-        return "artist name: {}, social-media: {}".format(self.name, self.social_media_link)
+        return "{}, {}".format(self.name, self.social_media_link)

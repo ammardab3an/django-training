@@ -1,7 +1,23 @@
+from socket import fromshare
 from django.contrib import admin
-
 from .models import Album
+from django import forms
+class AlbumForm(forms.ModelForm):
+    
+    def __init__(self, *args, **kwargs):
+        super(AlbumForm, self).__init__(*args, **kwargs)
+        self.fields['is_approved'].help_text = 'Approve the album if its name is not explicit'
 
-# Register your models here.
+    class Meta:
+        model = Album
+        exclude = ()
 
-admin.site.register(Album)
+@admin.register(Album)
+class AlbumAdmin(admin.ModelAdmin):
+    list_display = ('name', 'artist', 'release_date')
+    readonly_fields = ('created', 'modified')
+    form = AlbumForm
+
+class AlbumInline(admin.TabularInline):
+    model = Album
+    

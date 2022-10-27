@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Artists</title>
+</head>
+<body>
+    
+    {% csrf_token %}
+
+    <ul>
+        {% for ar, ar_data in data.items %}
+        <li>
+            <p>Stage name: {{ar_data.name}}</p>
+            <p>Social: {{ar_data.social_media_link}}</p>
+            <ul>
+                {% for al in ar_data.albums %}
+                    <li>
+                        <p>Id: {{al.id}}</p>
+                        <p>Album name: {{al.name}}</p>
+                        <p>Creation date: {{al.creation_date}}</p>
+                        <p>Release date: {{al.release_date}}</p>
+                        <p>Cost: {{al.cost}}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

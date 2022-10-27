@@ -1,14 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>New Artist Form</title>
-</head>
-<body>
-    
-    <form action="/artists/create/" method="post">
+{% extends 'base.html' %}
+
+{% block title %}New Artist Form{% endblock title %}
+
+{% block content %}
+    <form action="{% url 'new_artist_form' %}" method="post">
+        
         {% csrf_token %}
         
         {% if error_message %}
@@ -19,6 +15,4 @@
         
         <input type="submit" value="Submit">
     </form>
-    
-</body>
-</html>
+{% endblock content %}

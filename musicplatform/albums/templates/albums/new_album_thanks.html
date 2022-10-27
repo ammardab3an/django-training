@@ -1,13 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thanks</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block title %}Thanks{% endblock title %}
+
+{% block content %}
     {% csrf_token %}
     <p>Thanks, the new album <b>{{album_name}}</b> have been added to our database.</p>
-</body>
-</html>
+{% endblock content %}

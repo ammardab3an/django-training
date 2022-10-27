@@ -15,14 +15,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from artists.views import get_artist, get_artists
-from albums.views import get_album
+from artists.views import CreateArtistView, ListAllArtistsView
+from albums.views import CreateAlbumView
 from django.urls import include, path
-    
+import django.contrib.auth.views as auth_views
+from django.views.generic.base import RedirectView
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('artists/create/', get_artist, name='new_artist_form'),
-    path('albums/create/', get_album, name='new_album_form'),
-    path('artists/', get_artists, name='list_all_artists'),
+    path('accounts/login/', auth_views.LoginView.as_view(), name='login'),
+    path('accounts/logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('artists/', ListAllArtistsView.as_view(), name='list_all_artists'),
+    path('artists/create/', CreateArtistView.as_view(), name='new_artist_form'),
+    path('albums/create/', CreateAlbumView.as_view(), name='new_album_form'),
     path('__debug__/', include('debug_toolbar.urls')),
+    path('',  RedirectView.as_view(pattern_name='list_all_artists', permanent=True), name='home'),
 ]

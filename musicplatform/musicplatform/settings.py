@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'imagekit',
 ]
 
 MIDDLEWARE = [
@@ -147,10 +148,11 @@ DEBUG_TOOLBAR_PANELS = [
 
 LOGIN_URL = '/accounts/login'
 LOGIN_REDIRECT_URL = '/'
+MEDIA_ROOT = 'media/'
+MEDIA_URL = 'media/'
 
 if DEBUG:
     import mimetypes
     mimetypes.add_type("application/javascript", ".js", True)
     INSTALLED_APPS.append("debug_toolbar")
     MIDDLEWARE.append("debug_toolbar.middleware.DebugToolbarMiddleware")
-    

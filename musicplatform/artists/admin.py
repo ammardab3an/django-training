@@ -1,7 +1,5 @@
 from django.contrib import admin
 from .models import Artist
-from django import forms
-from albums.admin import AlbumInline
 
 @admin.register(Artist)
 class ArtistAdmin(admin.ModelAdmin):
@@ -17,7 +15,3 @@ class ArtistAdmin(admin.ModelAdmin):
     readonly_fields = ('created', 'modified')
     
     model = Artist
-    
-    inlines = [
-        AlbumInline,
-    ]

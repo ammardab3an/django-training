@@ -18,6 +18,9 @@
         <ul>
             {% if user.is_authenticated %}
             <li><a href="{% url 'logout' %}">Logout</a></li>
+            <li><a href="{% url 'new_artist_form' %}">Create Artist</a></li>
+            <li><a href="{% url 'new_album_form' %}">Create Album</a></li>
+            <li><a href="{% url 'new_song_form' %}">Create Song</a></li>
             {% else %}
             <li><a href="{% url 'login' %}">Login</a></li>
             {%endif%}            

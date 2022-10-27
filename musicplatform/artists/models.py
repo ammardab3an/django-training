@@ -12,7 +12,7 @@ class ArtistManager(models.Manager):
 class Artist(TimeStampedModel):
     
     name = models.CharField(max_length=200, primary_key=True)
-    social_media_link = models.URLField(max_length=300, blank=True, null=False)
+    social_media_link = models.URLField(max_length=200, blank=True, null=False)
     objects = ArtistManager()
     
     class Meta:

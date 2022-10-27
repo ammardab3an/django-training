@@ -14,12 +14,14 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.conf import settings
 from django.urls import path
 from artists.views import CreateArtistView, ListAllArtistsView
-from albums.views import CreateAlbumView
+from albums.views import CreateAlbumView, CreateSongView
 from django.urls import include, path
 import django.contrib.auth.views as auth_views
 from django.views.generic.base import RedirectView
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,6 +30,7 @@ urlpatterns = [
     path('artists/', ListAllArtistsView.as_view(), name='list_all_artists'),
     path('artists/create/', CreateArtistView.as_view(), name='new_artist_form'),
     path('albums/create/', CreateAlbumView.as_view(), name='new_album_form'),
+    path('songs/create/', CreateSongView.as_view(), name='new_song_form'),
     path('__debug__/', include('debug_toolbar.urls')),
     path('',  RedirectView.as_view(pattern_name='list_all_artists', permanent=True), name='home'),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

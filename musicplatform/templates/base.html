@@ -6,8 +6,6 @@
 </head>
 
 <body>
-    
-    {% csrf_token %}
 
     {% if user.is_authenticated %}
         <p>username: <b>{{user.username}}</b></p>

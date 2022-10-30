@@ -18,8 +18,8 @@ class AlbumSerializer(serializers.HyperlinkedModelSerializer):
 class SongSerializer(serializers.HyperlinkedModelSerializer):
     
     def validate(self, attrs):
-        print(attrs)
-        attrs['name'] = attrs.get('name', attrs['album'].name)
+        if not attrs.get('name', ''):
+            attrs['name'] = attrs['album'].name
         return super().validate(attrs)
 
     class Meta:

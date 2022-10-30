@@ -31,8 +31,9 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'artists.apps.ArtistsConfig',
-    'albums.apps.AlbumsConfig',
+    'artists',
+    'albums',
+    'users',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -152,9 +153,11 @@ LOGIN_URL = '/accounts/login'
 LOGIN_REDIRECT_URL = '/'
 MEDIA_ROOT = 'media/'
 MEDIA_URL = 'media/'
+AUTH_USER_MODEL = 'users.ExUser'
 
 if DEBUG:
     import mimetypes
     mimetypes.add_type("application/javascript", ".js", True)
     INSTALLED_APPS.append("debug_toolbar")
     MIDDLEWARE.append("debug_toolbar.middleware.DebugToolbarMiddleware")
+    

@@ -1,6 +1,4 @@
-from ast import Delete
 from rest_framework import viewsets, permissions
-from artists.models import Artist
 from .models import Album, Song
 from .serializers import AlbumSerializer, SongSerializer
 

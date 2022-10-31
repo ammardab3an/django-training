@@ -6,11 +6,13 @@ from django.conf.urls.static import static
 from rest_framework import routers
 from artists.views import ArtistViewSet
 from albums.views import AlbumViewSet, SongViewSet
+from users.views import ExUserViewSet
 
 router = routers.DefaultRouter()
 router.register(r'artists', ArtistViewSet)
 router.register(r'albums', AlbumViewSet)
 router.register(r'songs', SongViewSet)
+router.register(r'users', ExUserViewSet)
 
 urlpatterns = [
     

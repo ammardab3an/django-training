@@ -1,9 +1,9 @@
-from django.shortcuts import render
-from rest_framework import views, permissions, generics, status, viewsets
+from rest_framework import permissions, generics, status, views
 from rest_framework.response import Response
+from django.contrib.auth import login, logout
+from knox.models import AuthToken
 from .serializers import RegisterUserSerializer, LoginUserSerializer
 from users.models import ExUser
-from django.contrib.auth import login, logout
 
 # Create your views here.
         
@@ -30,14 +30,15 @@ class LoginUserView(generics.CreateAPIView):
         serializer = LoginUserSerializer(data=request.data, context={'request': request})
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data.get('user')
+        token =  AuthToken.objects.create(user)[1]
         login(request, user)
-        return Response(None, status=status.HTTP_202_ACCEPTED)
+        return Response({'success': True, 'token': token, 'email': user.email}, status=status.HTTP_202_ACCEPTED)
     
 class LogoutUserView(views.APIView):
     
     permission_classes = [permissions.AllowAny]
     
-    def get(self, request):
+    def post(self, request, format=None):
         logout(request)
-        return Response({'success': True})
+        return Response({'success': True}, status=status.HTTP_202_ACCEPTED)
     

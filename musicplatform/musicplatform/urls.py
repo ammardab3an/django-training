@@ -15,7 +15,7 @@ router.register(r'songs', SongViewSet)
 urlpatterns = [
     
     path('', include(router.urls)),
-    
+    path('auth/', include('authentication.urls')),
     path('admin/', admin.site.urls),
     path('__debug__/', include('debug_toolbar.urls')),
     

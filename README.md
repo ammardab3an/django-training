@@ -19,4 +19,4 @@ if you got "CSRF Failed: CSRF token missing" response, then:
         erase sessionid cookie
 ```
 
-The problem is produced my the session middleware, if your request contains a session-id then the session middleware will make request.user reference the user which got that session-id, and if the request doesn't contains a knox-token then knox-token-authentication will fail, and django will run the second authentication option which is the session-authentication, which is going fail finding csrfmiddlewaretoken in the POST body and raise "CSRF token missing" exception.
+The problem is produced by the session middleware, if your request contains a session-id then the session middleware will make request.user reference the user which got that session-id, and if the request doesn't contains a knox-token then knox-token-authentication will fail, and django will run the second authentication option which is the session-authentication, which is going fail finding csrfmiddlewaretoken in the POST body and return "CSRF token missing" response.
